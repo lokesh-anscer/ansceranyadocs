@@ -1,5 +1,5 @@
 import React from "react";
-import Lottie from "react-lottie";
+import Lottie from "lottie-react";
 import move from "./lotties/move";
 import waypointMove from "./lotties/waypointMove";
 import charging from "./lotties/charging";
@@ -22,194 +22,109 @@ const defaultOptions = (data) => {
     loop: true,
     autoplay: true,
     animationData: data,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
   };
 };
 
+const createIcon = (animationData, { style = {}, height, width } = {}) => (
+  <Lottie
+    title="lottie-icon"
+    style={{ height, width, ...style }}
+    {...defaultOptions(animationData)}
+  />
+);
+
 const icons = {
-  move: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0, marginBottom: "7px" }}
-      options={defaultOptions(move)}
-      isClickToPauseDisabled={true}
-      height={75}
-      width={25}
-    />
-  ),
-  multiWaypoint: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(waypointMove)}
-      isClickToPauseDisabled={true}
-      height={45}
-      width={25}
-    />
-  ),
-  qrMarker: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(qrMarker)}
-      isClickToPauseDisabled={true}
-      height={23}
-      width={23}
-    />
-  ),
-  charging: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(charging)}
-      isClickToPauseDisabled={true}
-      height={75}
-      width={25}
-    />
-  ),
-  lifter: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(lifter)}
-      isClickToPauseDisabled={true}
-      height={40}
-      width={25}
-    />
-  ),
-  conveyor: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: -5, marginTop: -15 }}
-      options={defaultOptions(conveyor)}
-      isClickToPauseDisabled={true}
-      height={40}
-      width={35}
-    />
-  ),
-  turnTable: (
-    <Lottie
-      title="lottie-icon"
-      options={defaultOptions(turnTable)}
-      isClickToPauseDisabled={true}
-      height={30}
-      width={30}
-    />
-  ),
-  manipulator: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: -2 }}
-      options={defaultOptions(manipulator)}
-      isClickToPauseDisabled={true}
-      height={35}
-      width={35}
-    />
-  ),
-  waitUser: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(waitUser)}
-      isClickToPauseDisabled={true}
-      height={35}
-      width={25}
-    />
-  ),
-  buzzer: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0, marginBottom: "5px" }}
-      options={defaultOptions(buzzer)}
-      isClickToPauseDisabled={true}
-      height={25}
-      width={25}
-    />
-  ),
-  docking: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(missionTarget)}
-      isClickToPauseDisabled={true}
-      height={32}
-      width={25}
-    />
-  ),
-  undocking: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(missionTarget)}
-      isClickToPauseDisabled={true}
-      height={32}
-      width={25}
-    />
-  ),
+  move: createIcon(move, {
+    style: { margin: 0, marginBottom: "7px" },
+    height: 75,
+    width: 25,
+  }),
+  multiWaypoint: createIcon(waypointMove, {
+    style: { margin: 0 },
+    height: 45,
+    width: 25,
+  }),
+  qrMarker: createIcon(qrMarker, {
+    style: { margin: 0 },
+    height: 23,
+    width: 23,
+  }),
+  charging: createIcon(charging, {
+    style: { margin: 0 },
+    height: 75,
+    width: 25,
+  }),
+  lifter: createIcon(lifter, {
+    style: { margin: 0 },
+    height: 40,
+    width: 25,
+  }),
+  conveyor: createIcon(conveyor, {
+    style: { margin: -5, marginTop: -15 },
+    height: 40,
+    width: 35,
+  }),
+  turnTable: createIcon(turnTable, {
+    height: 30,
+    width: 30,
+  }),
+  manipulator: createIcon(manipulator, {
+    style: { margin: -2 },
+    height: 35,
+    width: 35,
+  }),
+  waitUser: createIcon(waitUser, {
+    style: { margin: 0 },
+    height: 35,
+    width: 25,
+  }),
+  buzzer: createIcon(buzzer, {
+    style: { margin: 0, marginBottom: "5px" },
+    height: 25,
+    width: 25,
+  }),
+  docking: createIcon(missionTarget, {
+    style: { margin: 0 },
+    height: 32,
+    width: 25,
+  }),
+  undocking: createIcon(missionTarget, {
+    style: { margin: 0 },
+    height: 32,
+    width: 25,
+  }),
 };
 const featureIcons = {
-  easyToManage: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(easyToManage)}
-      isClickToPauseDisabled={true}
-      height={50}
-      width={50}
-    />
-  ),
-  focusOnWhatMatters: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(missionTarget)}
-      isClickToPauseDisabled={true}
-      height={50}
-      width={50}
-    />
-  ),
-  developerFriendly: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(developerFriendly)}
-      isClickToPauseDisabled={true}
-      height={50}
-      width={50}
-    />
-  ),
-  enhancedSafetyMeasures: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(enhancedSafetyMeasures)}
-      isClickToPauseDisabled={true}
-      height={60}
-      width={60}
-    />
-  ),
-  realTimeInsights: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(realTimeInsights)}
-      isClickToPauseDisabled={true}
-      height={50}
-      width={50}
-    />
-  ),
-  scalableSolution: (
-    <Lottie
-      title="lottie-icon"
-      style={{ margin: 0 }}
-      options={defaultOptions(scalableSolution)}
-      isClickToPauseDisabled={true}
-      height={45}
-      width={45}
-    />
-  ),
+  easyToManage: createIcon(easyToManage, {
+    style: { margin: 0 },
+    height: 50,
+    width: 50,
+  }),
+  focusOnWhatMatters: createIcon(missionTarget, {
+    style: { margin: 0 },
+    height: 50,
+    width: 50,
+  }),
+  developerFriendly: createIcon(developerFriendly, {
+    style: { margin: 0 },
+    height: 50,
+    width: 50,
+  }),
+  enhancedSafetyMeasures: createIcon(enhancedSafetyMeasures, {
+    style: { margin: 0 },
+    height: 60,
+    width: 60,
+  }),
+  realTimeInsights: createIcon(realTimeInsights, {
+    style: { margin: 0 },
+    height: 50,
+    width: 50,
+  }),
+  scalableSolution: createIcon(scalableSolution, {
+    style: { margin: 0 },
+    height: 45,
+    width: 45,
+  }),
 };
 export const FeatureLottieIcon = ({ icon }) => featureIcons[icon];
 
