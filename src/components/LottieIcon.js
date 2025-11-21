@@ -1,5 +1,4 @@
-import React from "react";
-import Lottie from "lottie-react";
+import React, { useEffect, useRef } from "react";
 import move from "./lotties/move";
 import waypointMove from "./lotties/waypointMove";
 import charging from "./lotties/charging";
@@ -17,20 +16,54 @@ import enhancedSafetyMeasures from "./lotties/enhancedSafetyMeasures";
 import realTimeInsights from "./lotties/realTimeInsights";
 import scalableSolution from "./lotties/scalableSolution";
 
-const defaultOptions = (data) => {
-  return {
-    loop: true,
-    autoplay: true,
-    animationData: data,
-  };
+const isBrowser = typeof window !== "undefined";
+
+const LottiePlayer = ({ animationData, style = {}, height, width }) => {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!containerRef.current || !isBrowser) {
+      return undefined;
+    }
+
+    let animation;
+    let cancelled = false;
+
+    const loadAnimation = async () => {
+      const { default: lottie } = await import("lottie-web");
+      if (cancelled || !containerRef.current) {
+        return;
+      }
+      animation = lottie.loadAnimation({
+        container: containerRef.current,
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        animationData,
+      });
+    };
+
+    loadAnimation();
+
+    return () => {
+      cancelled = true;
+      if (animation) {
+        animation.destroy();
+      }
+    };
+  }, [animationData]);
+
+  return (
+    <div
+      title="lottie-icon"
+      style={{ height, width, ...style }}
+      ref={containerRef}
+    />
+  );
 };
 
-const createIcon = (animationData, { style = {}, height, width } = {}) => (
-  <Lottie
-    title="lottie-icon"
-    style={{ height, width, ...style }}
-    {...defaultOptions(animationData)}
-  />
+const createIcon = (animationData, config = {}) => (
+  <LottiePlayer animationData={animationData} {...config} />
 );
 
 const icons = {
