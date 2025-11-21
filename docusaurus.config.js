@@ -135,11 +135,10 @@ const config = {
         docsPluginId: "api",
         config: {
           ansceranya: {
-            specPath: "api/ansceranya/api-1.0.22.json",
+            specPath: "api/ansceranya/v1/api.json",
             outputDir: "api/ansceranya/v1",
             sidebarOptions: {
               groupPathsBy: "tag",
-              categoryLinkSource: "tag",
             },
             template: "api.mustache", // Customize API MDX with mustache template
             hideSendButton: false,
@@ -158,7 +157,6 @@ const config = {
             outputDir: "api/ansceranyafms/v1",
             sidebarOptions: {
               groupPathsBy: "tag",
-              categoryLinkSource: "tag",
             },
             template: "api.mustache", // Customize API MDX with mustache template
             hideSendButton: false,

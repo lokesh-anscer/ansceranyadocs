@@ -6,7 +6,7 @@
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "npm run generate-api-docs && docusaurus build",
-    "generate-api-docs": "npm run run-api-parser && docusaurus gen-api-docs ansceranya",
+    "generate-api-docs": "npm run run-api-parser && docusaurus gen-api-docs ansceranya --plugin-id apidocs",
     "run-api-parser": "node utils/api-parser/index.js",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",

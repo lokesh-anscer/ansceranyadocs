@@ -1,10 +1,25 @@
 const fs = require("fs");
+const path = require("path");
 const lodash = require("lodash");
-// Read the content of api.json file
 
-fs.readFile("api/ansceranya/v1/api.json", "utf8", (err, data) => {
+const specSourcePath =
+  process.env.API_SPEC_SOURCE || "api/ansceranya/api-1.0.22.json";
+const outputPath =
+  process.env.API_OUTPUT_PATH || "api/ansceranya/v1/api.json";
+const resolvedSpecSourcePath = path.resolve(process.cwd(), specSourcePath);
+const resolvedOutputPath = path.resolve(process.cwd(), outputPath);
+
+if (!fs.existsSync(resolvedSpecSourcePath)) {
+  console.warn(
+    `API spec not found at ${resolvedSpecSourcePath}. Skipping tag enrichment.`
+  );
+  process.exit(0);
+}
+
+fs.readFile(resolvedSpecSourcePath, "utf8", (err, data) => {
   if (err) {
     console.error("Error reading the file:", err);
+    process.exitCode = 1;
     return;
   }
 
@@ -42,13 +57,17 @@ fs.readFile("api/ansceranya/v1/api.json", "utf8", (err, data) => {
     }));
 
     const result = JSON.stringify(jsonData, null, 2);
-    fs.writeFile("api/ansceranya/v1/api.json", result, "utf8", (err) => {
+    fs.mkdirSync(path.dirname(resolvedOutputPath), { recursive: true });
+    fs.writeFile(resolvedOutputPath, result, "utf8", (err) => {
       if (err) {
         console.error("Error writing to file:", err);
+        process.exitCode = 1;
         return;
       }
+      console.info(`API spec enriched at ${resolvedOutputPath}`);
     });
   } catch (error) {
     console.error("Error parsing JSON:", error);
+    process.exitCode = 1;
   }
 });
